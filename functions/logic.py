@@ -15,4 +15,11 @@ def check_collision(polls,dot):
 
 	if(dot.rect.colliderect(polls[1].rect)):
 		print("collided")
-		exit()
+		
+def check_for_score(score_,poll):
+	if (poll.rect.x <=0 ):
+		score_ += 10
+		return score_
+	else:
+		return score_
+		

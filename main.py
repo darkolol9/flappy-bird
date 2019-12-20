@@ -4,6 +4,7 @@ from classes import poll
 from functions import logic
 from classes import dot
 from functions import event_handler
+from classes import score
 #end of imports
 
 #pygame game template:
@@ -32,10 +33,12 @@ polls = [pol1,pol2]
 
 #create dot
 dot_spite =dot.Dot(height*0.48,width*0.48) 
+score_board = score.Score(width,height)
+score_ = 0
 x_change = 0
 y_change = 3
 gravity = 0
-speed = 1
+speed = 2
 clock = pygame.time.Clock()
 white = (0,100,255)
 
@@ -52,10 +55,17 @@ while game_is_running:
 	dot_spite.rect.x += x_change
 	dot_spite.rect.y += y_change
 
+	speed = (score_ +20)/10
+
 	for poll in polls:
 		poll.move(speed)
 
-	#print('moving...')
+	
+
+	score_=logic.check_for_score(score_,polls[0])
+	str1 = 'score: ' + str(score_)
+	print(str1)
+	score_board.update(str1,screen)
 	logic.logic(dot_spite,width,height,game_is_running,polls,speed)
 	
 	dot_spite.blit(screen)
