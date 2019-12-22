@@ -5,6 +5,7 @@ from functions import logic
 from classes import dot
 from functions import event_handler
 from classes import score
+from time import sleep
 #end of imports
 
 #pygame game template:
@@ -32,7 +33,7 @@ pol2 = poll.Poll(width,height)
 polls = [pol1,pol2]
 
 #create dot
-dot_spite =dot.Dot(height*0.48,width*0.48) 
+dot_spite =dot.Dot(height*0.3,width*0.20) 
 score_board = score.Score(width,height)
 score_ = 0
 x_change = 0
@@ -41,11 +42,14 @@ gravity = 0
 speed = 2
 clock = pygame.time.Clock()
 white = (0,100,255)
+interval = 1
 
 while game_is_running:
 	screen.blit(bg_img,[0,0])
+
+
 	#handle events
-	logic.check_collision(polls,dot_spite)
+	logic.check_collision(polls,dot_spite,width,height,screen)
 	#print('change: ',x_change)
 	for event in pygame.event.get():
 		#handle the quitting event
@@ -69,12 +73,14 @@ while game_is_running:
 	logic.logic(dot_spite,width,height,game_is_running,polls,speed)
 	
 	dot_spite.blit(screen)
-
+	
 	for poll in polls:
 		poll.blit(screen)
-
+	
 	#update screen (frame)
 	pygame.display.update()
+	sleep(interval)
+	interval = 0
 	clock.tick(60)
 
 
